@@ -61,6 +61,8 @@ def main():
             print(f"I am parent process ({os.getpid()}), and I write \"{message}\".")
         os.close(p0[1])
         os.close(p1[1])
+    
+    return 0
 
 if __name__ == "__main__":
     sys.exit(main()) 
