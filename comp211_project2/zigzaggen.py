@@ -16,10 +16,8 @@ def main():
         print(os.strerror("Depth should be no more than 10."))
         os._exit(1)
 
-    # root process
     print(f"Level 0 of the zig zag path - I am process with PID = {os.getpid()}, and I am the root.")
 
-    child_pid = 0
     for i in range(tree_depth):
         i += 1
 
@@ -33,32 +31,39 @@ def main():
                 print(os.strerror("Failed to fork."))
                 os._exit(1)
 
-            # children processes
+            # checking if process is a child
             if child_pid == 0:
+
                 # checking if level is an even number
                 if i % 2 == 0:
+                    # checking if child is on left side
                     if j == 0:
                         # exitting from the left child, if level is an even number
                         print(f"Level {i} of the zig zag path - I am process with PID = {os.getpid()}, my parent is PID = {os.getppid()}, and I am its left child.")
-                        os._exit(1)
+                        os._exit(0)
+                    # checking if child is on right side
                     else:
                         # carrying on from the right child, if level is an even number
                         print(f"Level {i} of the zig zag path - I am process with PID = {os.getpid()}, my parent is PID = {os.getppid()}, and I am its right child.")
                         break
                 # checking if level is an odd number
                 else:
+                    # checking if child is on left side
                     if j == 0:
                         # carrying on from the left child, if level is an odd number
                         print(f"Level {i} of the zig zag path - I am process with PID = {os.getpid()}, my parent is PID = {os.getppid()}, and I am its left child.")
                         break
+                    # checking if child is on right side
                     else:
                         # exitting from the right child, if level is an odd number
                         print(f"Level {i} of the zig zag path - I am process with PID = {os.getpid()}, my parent is PID = {os.getppid()}, and I am its right child.")
-                        os._exit(1)
+                        os._exit(0)
+                        
+            # checking if process is a parent
             else:
               os.wait
         
-        # separating previously forked children from newly forked ones
+        # separating parents of two children
         if child_pid != 0:
             break
     
