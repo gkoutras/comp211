@@ -25,6 +25,7 @@ def main():
         if child_pid == -1:
             print(os.strerror("Failed to execute fork."))
             os.close(p0)
+            os.close(p1)
             os._exit(1)
 
         # checking if process is a child

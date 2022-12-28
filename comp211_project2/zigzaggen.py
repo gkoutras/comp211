@@ -61,7 +61,8 @@ def main():
                         
             # checking if process is a parent
             else:
-              os.wait
+                os.wait
+                os.wait
         
         # separating parents of two children
         if child_pid != 0:
