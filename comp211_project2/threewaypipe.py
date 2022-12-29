@@ -36,30 +36,31 @@ def main():
                 os.close(p0[1])
                 for message in MESSAGES:
                     read_message = os.read(p0[0], len(message))
-                    print(f"I am process ({os.getpid()}), with parent ({os.getppid()}), and I read \"{read_message.decode()}\".")
+                    print(f"I am process with PID = [{os.getpid()}], my parent has PID = [{os.getppid()}], and I read \"{read_message.decode()}\".")
                 os.close(p0[0])
-                break
+                os._exit(0)
             # checking if process is on right side
             else:
                 # right child setting p1[0] reader and printing info
                 os.close(p1[1])
                 for message in MESSAGES:
                     read_message = os.read(p1[0], len(message))
-                    print(f"I am process ({os.getpid()}), with parent ({os.getppid()}), and I read \"{read_message.decode()}\".")
+                    print(f"I am process with PID = [{os.getpid()}], my parent has PID = [{os.getppid()}], and I read \"{read_message.decode()}\".")
                 os.close(p1[0])
-                break
+                os._exit(0)
         else:
+            # parent waiting for child process to complete
             os.wait
 
     # checking if process is the parent
     if child_pid != 0:
         # parent setting p0[1] and p1[1] writers and printing info
-        os.close (p0[0])
-        os.close (p1[0])
+        os.close(p0[0])
+        os.close(p1[0])
         for message in MESSAGES:
             os.write (p0[1], message.encode())
             os.write (p1[1], message.encode())
-            print(f"I am parent process ({os.getpid()}), and I write \"{message}\".")
+            print(f"I am process with PID = [{os.getpid()}], I am the parent, and I write \"{message}\".")
         os.close(p0[1])
         os.close(p1[1])
     

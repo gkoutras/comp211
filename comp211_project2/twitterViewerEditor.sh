@@ -104,6 +104,12 @@ function optionReadCurrent()
     printf "The tweet at the current line is:\n\t${data[CurTweetID - 1]}\n"
 }
 
+# a function for " w " and " x " options
+function optionSave()
+{
+    printf "%s\n" "${data[@]}" > tweetsmall.txt
+}
+
 # reading input file and storing it in an array
 readarray data < tweetsmall.txt
 
@@ -187,11 +193,11 @@ while true; do
             ;;
 
         w)  printf "Writing to file...\n"
-            printf "%s\n" "${data[@]}" > tweetsmall.txt
+            optionSave
             ;;
 
         x)  printf "Writing to file and exiting...\n"
-            printf "%s\n" "${data[@]}" > tweetsmall.txt
+            optionSave
             break
             ;;
 
