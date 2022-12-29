@@ -3,7 +3,7 @@
 Linux Commands, Bash Scripting, Process Programming
 
 ## Task 1: Linux Commands
-*- linuxCommands.ipynb*
+*- linuxCommands.ipynb* 
 
 1. The `tail` command places a pointer to the last line of the file `tweetsmall.txt` and takes as an argument the offset from there, in this case `-1` for the last line.
 
