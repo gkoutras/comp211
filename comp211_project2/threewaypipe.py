@@ -58,8 +58,8 @@ def main():
         os.close(p0[0])
         os.close(p1[0])
         for message in MESSAGES:
-            os.write (p0[1], message.encode())
-            os.write (p1[1], message.encode())
+            os.write(p0[1], message.encode())
+            os.write(p1[1], message.encode())
             print(f"I am process with PID = [{os.getpid()}], I am the parent, and I write \"{message}\".")
         os.close(p0[1])
         os.close(p1[1])
