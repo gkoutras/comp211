@@ -21,7 +21,7 @@ Linux Commands, Bash Scripting, Process Programming
 
 8. Via `grep` command, lines are case-insensitively (`-i`) searched for the word (`-w`) "romney". The lines to be returned are given as input to another inverse (`-v`) `grep`, which leaves out the lines with the word "obama" case-insensitively (`-i`) again. The final result is pipelined (`|`) to a `cat` command, that redirects it to a new `romney.txt` file.
 
-9. .
+9. Using the `grep` command with the `-E` argument, the regular expression ``^@\w+|\s@\w+'` is declared, which describes any word starting with `@` at the beginning of a line or any word starting with `@` after a space. The results of `grep`, through a `cat` command, are overwritten in the `tags.txt` file.
 
 10. Via `mkdir` command, a `alltxts` directory is created. Upon successful execution (`&&`) of the previous command, an `mv` command is executed, which transfers all files ending with `.txt` from the current directory to `alltxts`. Then all the permissions for user (`u`), group (`g`) and others (`o`) are given with `chmod` in the directory `alltxts`, `cd` is done in `alltxts` and all the permissions are given there permissions for all files ending with `.txt`.
 
@@ -43,3 +43,4 @@ At first, after checking for the correct number of arguments, which are the name
 ## Task 5: Python Pipes - Three-Way Pipe Implementation
 *- threewaypipe.py*
 
+Since it is needed for the elements of the tuple to be read twice, there should be two pipes. That is, one read is needed for each generated child, thus also one pipe is needed for each generated child. After the pipes `p0` and `p1` are created with the command `os.pipe()` and a check is made for the case of their creation failure, a `for` loop starts that runs for the width of the tree (two children so width 2). The parent process executes the command `os.fork()`, and after checking for the failure of the fork, the forked children are separated by the condition `if child_pid == 0`. One child is taken over by the pipe `p0`, and after closing its "write" file descriptor with `os.close()`, it reads with `os.read()` the contents of the pipe and decrypts them by bytes (` .decode()`) before printing them. The other child is taken over by pipe `p1` and executes the corresponding commands. Everything the children read from the pipes has been written by the parent process which takes over both "write" file descriptors. After closing the "read" file descriptors with `os.close()`, it encrypts in bytes (`.encode()`) the elements of the original tuple and writes them with `os.write()` to the pipes.
